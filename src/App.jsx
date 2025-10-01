@@ -1,6 +1,4 @@
 import { useState, useRef } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import React from 'react'
 import Navbar from "./components/Navbar";
@@ -14,7 +12,7 @@ import APACitation from './components/APACitation'
 function App() {
   const scrollContainer = useRef(null);
   return (
-    <div style={{ height: "100vh", display: "flex", flexDirection: "column" }}>
+    <div style={{ height: "100dvh", display: "flex", flexDirection: "column" }}>
       {/* Navbar fixed at the top */}
       <div style={{ flexShrink: 0 }}>
         <Navbar scrollContainer={scrollContainer} />
@@ -41,7 +39,7 @@ function App() {
           <div id="bio" style={{
             display: "flex",
             flexDirection: "column",
-            minHeight: "100vh",
+            minHeight: "100dvh",
             justifyContent: "center",
             alignItems: "center",
           }}>
@@ -54,7 +52,7 @@ function App() {
             gap: "5rem",
           }}>
             {/* <div id="projects" style={{
-              minHeight: "100vh",
+              minHeight: "100dvh",
             }}>
               <SectionHeading heading="Project Highlights" />
               <p>Here are a couple of project highlights over the years.</p>
@@ -77,7 +75,7 @@ function App() {
             </div> */}
 
             <div id="experience" style={{
-              minHeight: "100vh",
+              minHeight: "100dvh",
             }}>
               <SectionHeading heading="Experience" />
 
@@ -99,7 +97,7 @@ function App() {
             </div>
 
             <div id="education" style={{
-              minHeight: "100vh",
+              minHeight: "100dvh",
             }}>
               <SectionHeading heading="Education" />
 
@@ -117,20 +115,20 @@ function App() {
             </div>
 
             <div id="talks" style={{
-              minHeight: "100vh",
+              minHeight: "100dvh",
             }}>
               <SectionHeading heading="Talks" />
 
               <SubSectionHeading heading={"Guest Lecture Stochastic and Population Optimization Methods"} location={"Stanford University"} time={"04/2025"} />
-              <TwoColumn image={"/aa222_lecture.jpeg"} text={<p style={{ marginLeft: 0 }}>As part of Stanford’s AA222/CS361 <em>Design Engineering Optimization</em> course, I was invited to deliver a guest lecture on stochastic and population-based optimization. The session covered <em>Mesh Adaptive Direct Search</em>, the <em>Cross-Entropy Method</em>, and <em>genetic algorithms</em>. My goal was to ensure students left with not only an intuitive understanding of how these algorithms work individually, but also how they are connected. To achieve this, I created a highly visual lecture that relied on dynamic animations to convey ideas beyond what a textbook can capture. For this purpose, I extended Grant Sanderson’s (3Blue1Brown) <em>Manim</em> package, adapting it for the classroom setting while preserving its powerful animation capabilities.</p>} maxWidthImage={"30%"} />
+              <TwoColumn image={"/aa222_lecture.jpeg"} text={<text>As part of Stanford's AA222/CS361 <em>Design Engineering Optimization</em> course, I was invited to deliver a guest lecture on stochastic and population-based optimization. The session covered <em>Mesh Adaptive Direct Search</em>, the <em>Cross-Entropy Method</em>, and <em>genetic algorithms</em>. My goal was to ensure students left with not only an intuitive understanding of how these algorithms work individually, but also how they are connected. To achieve this, I created a highly visual lecture that relied on dynamic animations to convey ideas beyond what a textbook can capture. For this purpose, I extended Grant Sanderson’s (3Blue1Brown) <em>Manim</em> package, adapting it for the classroom setting while preserving its powerful animation capabilities.</text>} maxWidthImage={"30%"} />
 
               <SubSectionHeading heading={"ICLR 2025 HAIC Workshop"} location={"Singapore"} time={"04/2025"} />
-              <TwoColumn image={"./iclr_academia_panel.jpg"} text={<p style={{ marginLeft: 0 }}>I was part of the organizing committee for the first Human-AI Co-Evolution (HAIC) Workshop at the International Conference on Learning Representations (ICLR) 2025 in Singapore. With AI safety emerging as one of the central themes of ICLR 2025—a topic I am deeply passionate about—the workshop created a unique space to bring together researchers with deep expertise in pre-LLM AI safety and current leaders in large language model research. My responsibilities included supporting the peer-review process, coordinating scheduling, and shaping the program. I also moderated a panel with David Hsu, Lindsay Sandman, Fan Shi, and Kokil Jaidka, where we discussed the future of safety-aware AI deployment and critically examined the limitations of current approaches. A key takeaway from the workshop was that the notion of “AI safety” in the LLM community is often interpreted too narrowly, overlooking the fact that safety is inherently context-dependent. The workshop sparked new discussions and collaborations, and we are currently developing a position paper to capture these insights.</p>} maxWidthImage={"40%"} />
+              <TwoColumn image={"./iclr_academia_panel.jpg"} text={<text>I was part of the organizing committee for the first Human-AI Co-Evolution (HAIC) Workshop at the International Conference on Learning Representations (ICLR) 2025 in Singapore. With AI safety emerging as one of the central themes of ICLR 2025—a topic I am deeply passionate about—the workshop created a unique space to bring together researchers with deep expertise in pre-LLM AI safety and current leaders in large language model research. My responsibilities included supporting the peer-review process, coordinating scheduling, and shaping the program. I also moderated a panel with David Hsu, Lindsay Sandman, Fan Shi, and Kokil Jaidka, where we discussed the future of safety-aware AI deployment and critically examined the limitations of current approaches. A key takeaway from the workshop was that the notion of “AI safety” in the LLM community is often interpreted too narrowly, overlooking the fact that safety is inherently context-dependent. The workshop sparked new discussions and collaborations, and we are currently developing a position paper to capture these insights.</text>} maxWidthImage={"40%"} />
 
             </div>
 
             <div id="awards" style={{
-              minHeight: "100vh",
+              minHeight: "100dvh",
             }}>
               <SectionHeading heading="Awards" />
               <SubSectionHeading heading={"Centennial Teaching Assistant Award"} location={"Stanford University"} time={"05/2023"} />
@@ -147,11 +145,11 @@ function App() {
             </div>
 
             <div id="publications" style={{
-              minHeight: "100vh",
+              minHeight: "100dvh",
             }}>
               <SectionHeading heading="Publications" />
               <p style={{
-                marginTop: "-3rem",
+                marginTop: "-2rem",
                 paddingBottom: "4rem",
               }}><em>Note: Where possible, the open access version of the papers have been linked.</em></p>
 

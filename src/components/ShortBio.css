@@ -1,14 +1,20 @@
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Container for the two-column section */
 .two-column-section {
+    @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8;
     display: flex;
     flex-direction: row;
     align-items: center;  
     justify-content: center;
     gap: 5rem;
     padding-bottom: 5rem;
-    padding-left: 4rem;
-    padding-right: 4rem;
-    height: 100vh;
+    /* padding-left: 4rem;
+    padding-right: 4rem; */
+    height: 100dvh;
 }
 
 /* Image animation */

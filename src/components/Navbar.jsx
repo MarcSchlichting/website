@@ -3,7 +3,7 @@ import "./Navbar.css"
 
 function Navbar({ scrollContainer }) {
     const [isOpen, setIsOpen] = useState(false);
-    const navbarHeight = 64; // adjust to your navbar's actual height
+    const navbarHeight = 78; // adjust to your navbar's actual height
 
     // Generic scroll function
     const scrollToSection = (id) => {
@@ -30,9 +30,9 @@ function Navbar({ scrollContainer }) {
 
     return (
         <nav className="fixed top-0 left-0 w-full bg-gray-800 text-white shadow-md z-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16 items-center">
-                    <div className="text-xl font-bold pl-16 -ml-8 box-border">Marc Schlichting</div>
+                    <div className="text-xl font-bold box-border">Marc Schlichting</div>
 
 
 
@@ -60,7 +60,7 @@ function Navbar({ scrollContainer }) {
                             onClick={() => setIsOpen(!isOpen)}
                             className="hamburger-button"
                         >
-                            {isOpen ? "×" : "☰"}
+                            {isOpen ? "×" : "≡"}
                         </button>
                     </div>
                 </div>

@@ -28,41 +28,27 @@ body {
   font-weight: 200;
   place-items: center;
   min-width: 320px;
-  min-height: 100vh;
+  min-height: 100dvh;
   background-color: #151515;
 }
 
 /* App.css or global CSS file */
 
 h1 {
-  font-family: 'Open Sans', Arial, sans-serif; /* font */
-  font-size: 3rem;        /* size */
-  font-weight: 200;       /* bold */
-  color: #ddd;         /* text color */
-  margin: 1rem 0;         /* spacing */
-  margin-bottom: 3rem;
-  text-align: left;       /* alignment */
+  @apply font-sans font-extralight text-gray-300 text-left mb-12 text-5xl;
+  font-family: 'Open Sans', Arial, sans-serif;
 }
 
 h2 {
+  @apply font-sans font-semibold text-gray-300 text-left mt-14 text-xl;
   font-family: 'Open Sans', Arial, sans-serif;
-  font-size: 2rem;
-  font-weight: 600;
-  color: #ddd;
-  margin: 0.75rem 0;
-  margin-top: 3.5rem;
-  text-align: left;
 }
 
 h3 {
+  @apply font-sans font-semibold text-gray-300 text-left mt-8 text-lg;
   font-family: 'Open Sans', Arial, sans-serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #ddd;
-  margin: 0.5rem 0;
-  margin-top: 2rem;
-  text-align: left;
 }
+
 
 
 button {

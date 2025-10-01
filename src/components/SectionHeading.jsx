@@ -2,10 +2,8 @@ import React from "react";
 
 function SectionHeading({ heading }) {
   return (
-    <section title={heading} style={{
+    <section title={heading} className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8" style={{
       textAlign: 'left',
-      paddingLeft: "4rem",
-      paddingRight: "4rem",
     }}>
       <h1>
         {heading}
