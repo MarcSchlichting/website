@@ -5,8 +5,8 @@ import headshot from "./../assets/headshot.jpg";
 function ShortBio() {
     return (
         <section className="two-column-section">
-            <div>
-                <img src={headshot} alt="Title" style={{ maxWidth: "30vw" }} />
+            <div style={{width: "35%"}}>
+                <img src={headshot} alt="Headshot" />
             </div>
             <div className="text" style={{ textAlign: 'left' }}>
                 <h1 style={{

@@ -1,3 +1,8 @@
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Hamburger button */
 .hamburger-button {
   display: flex;                /* Flex container to center icon */
@@ -22,3 +27,13 @@
   background-color: #ccc;       /* Background on hover */
   color: oklch(27.8% 0.033 256.848);
 }
+
+.menu-item {
+    @apply text-white hover:text-gray-300 no-underline;
+    transition: color 0.3s ease-in-out;
+}
+
+.menu-item:hover {
+  color: #b1d4f6; /* <- your chosen hover color */
+}
+

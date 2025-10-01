@@ -32,7 +32,14 @@ function Navbar({ scrollContainer }) {
         <nav className="fixed top-0 left-0 w-full bg-gray-800 text-white shadow-md z-50">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16 items-center">
-                    <div className="text-xl font-bold box-border">Marc Schlichting</div>
+                    <div className="text-xl font-normal box-border">
+                        <a key={"bio"} href={"#bio"} onClick={(e) => {
+                            e.preventDefault();
+                            scrollToSection('bio');
+                        }}>
+                            Marc Schlichting
+                        </a>
+                    </div>
 
 
 
@@ -42,7 +49,7 @@ function Navbar({ scrollContainer }) {
                             <a
                                 key={item.id}
                                 href={`#${item.id}`}
-                                className="text-white hover:text-gray-300 no-underline"
+                                className="menu-item"
                                 onClick={(e) => {
                                     e.preventDefault();
                                     scrollToSection(item.id);
