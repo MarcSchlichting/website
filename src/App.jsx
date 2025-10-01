@@ -149,9 +149,9 @@ function App() {
             }}>
               <SectionHeading heading="Publications" />
               <p style={{
-                marginTop: "-2rem",
+                marginTop: "-2.5rem",
                 paddingBottom: "4rem",
-              }}><em>Note: Where possible, the open access version of the papers have been linked.</em></p>
+              }}><em>Note: Where possible, the open access version of the papers has been linked.</em></p>
 
               <div style={{
                 display: "flex",
