@@ -41,7 +41,7 @@ function ShortBio({ scrollContainerRef }) {
         {
             id: 0,
             name: "AI in Safety-Critical Domains",
-            level: 100,
+            level: 97,
             projects: [
                 "Designed AI tools for aviation emergency decision support using tool calling, RAG, and speech recognition",
                 "Built real-time, on-edge LLM systems and custom RAG pipelines for safety-critical applications",
@@ -111,6 +111,26 @@ function ShortBio({ scrollContainerRef }) {
             ]
         },
         {
+            id: 12,
+            name: "APIs/Backend",
+            level: 80,
+            projects: [
+                "Built a FastAPI-based backend for the AI pilot assistant to handle communication between frontend, speech recognition, and the LLM models",
+                "Followed cybcersecurity best practices for deployment (e.g., used JWT)",
+                "Developed a cloud-based backend for real-time wearable data processing and analytics in a graduate class project",
+            ]
+        },
+        {
+            id: 13,
+            name: "Speech Recognition",
+            level: 80,
+            projects: [
+                "Built a wakeword, silence detection, and transcription pipeline optimized for cockpit environments that allows pilots to talk to the assistant like they are used from Siri, Alexa, or other assistants",
+                "Knowledgeable in ASR model architectures and signal theory",
+                "Experience with data augmentation and fine-tuning using synthetic datasets"
+            ]
+        },
+        {
             id: 8,
             name: "Python",
             level: 98,
@@ -149,26 +169,6 @@ function ShortBio({ scrollContainerRef }) {
             ]
         },
         {
-            id: 12,
-            name: "APIs/Backend",
-            level: 80,
-            projects: [
-                "Built a FastAPI-based backend for the AI pilot assistant to handle communication between frontend, speech recognition, and the LLM models",
-                "Followed cybcersecurity best practices for deployment (e.g., used JWT)",
-                "Developed a cloud-based backend for real-time wearable data processing and analytics in a graduate class project",
-            ]
-        },
-        {
-            id: 13,
-            name: "Speech Recognition",
-            level: 80,
-            projects: [
-                "Built a wakeword, silence detection, and transcription pipeline optimized for cockpit environments that allows pilots to talk to the assistant like they are used from Siri, Alexa, or other assistants",
-                "Knowledgeable in ASR model architectures and signal theory",
-                "Experience with data augmentation and fine-tuning using synthetic datasets"
-            ]
-        },
-        {
             id: 14,
             name: "Project Management",
             level: 90,
@@ -178,7 +178,8 @@ function ShortBio({ scrollContainerRef }) {
                 "Current project lead for a research team of 8 students, 1 postdoc, and external partners",
                 "Proven record of on-time delivery and successful execution across complex technical projects",
             ]
-        }
+        },
+        
     ];
 
 
