@@ -47,7 +47,7 @@ h2 {
 }
 
 h3 {
-  @apply font-sans font-medium text-gray-300 text-left mt-8 text-lg;
+  @apply font-sans font-normal text-gray-300 text-left mt-8 text-lg;
   font-family: 'Source Sans 3', Arial, sans-serif;
 }
 

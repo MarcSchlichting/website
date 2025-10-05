@@ -5,16 +5,13 @@
 
 /* Container for the two-column section */
 .two-column-section {
-    @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply max-w-5xl mx-auto px-4 sm:px-6 sm:gap-8 lg:px-8 lg:gap-16;
     display: flex;
     flex-direction: row;
-    align-items: center;  
+    align-items: flex-start;
     justify-content: center;
-    gap: 5rem;
     padding-bottom: 5rem;
-    /* padding-left: 4rem;
-    padding-right: 4rem; */
-    height: 100dvh;
+    /* height: 100dvh; */
 }
 
 /* Image animation */
@@ -22,11 +19,11 @@
     max-width: 100%;
     height: auto;
     flex: 1;
-    border-radius: 15%;
-    
+    border-radius: 0%;
+
     /* Start hidden */
     opacity: 0;
-    transform: translateX(-30px) translateY(10px);
+    transform: translateX(-30px) translateY(0);
 
     /* Apply animation */
     animation: fadeInLeft 1s ease-out forwards;
@@ -36,21 +33,18 @@
 .two-column-section .text {
     flex: 1;
 
-    /* Start hidden */
-    opacity: 0;
-    transform: translateX(30px) translateY(10px);
-
-    /* Apply animation */
-    animation: fadeInRight 1s ease-out forwards;
-    animation-delay: 0.3s; /* stagger after image */
 }
+
+
+
 
 /* Keyframes */
 @keyframes fadeInLeft {
     from {
         opacity: 0;
-        transform: translateX(-30px) translateY(10px);
+        transform: translateX(-30px) translateY(0);
     }
+
     to {
         opacity: 1;
         transform: translateX(0) translateY(0);
@@ -62,6 +56,7 @@
         opacity: 0;
         transform: translateX(30px) translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0) translateY(0);
@@ -75,12 +70,41 @@
         text-align: center;
     }
 
-    .two-column-section .text {
-        margin-top: 0.5rem;
+    /* Make the image container full width on small screens */
+    .two-column-section>div:first-child {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    
     }
 
     .two-column-section img {
-        width: 60vw;
-        margin-bottom: -3rem;
+        width: 60% !important;
+        height: auto !important;
+        margin-bottom: 1.5rem !important;
     }
+}
+
+/* fade-up animation */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-up {
+    opacity: 0;
+    animation: fadeUp 0.6s ease-out forwards;
+    position: static !important;
+    /* ensure it doesn't create a new containing block */
+    transform-origin: top;
+    /* purely visual */
+    will-change: opacity, transform;
 }
