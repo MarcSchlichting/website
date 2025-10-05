@@ -14,7 +14,7 @@ const SkillPill = ({ skill, onHover, handleMouseLeave }) => {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             className="
-        bg-gray-700
+        bg-gray-800
         text-gray-300 rounded-full cursor-pointer
         transition-all duration-300 ease-out
         flex items-center justify-center
