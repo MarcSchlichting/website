@@ -1,11 +1,42 @@
 import React, { useRef, useLayoutEffect, useState, useEffect } from "react";
 
-const SkillPill = ({ skill, onHover, handleMouseLeave, handleClick }) => {
+const SkillPill = ({ skill, onHover, handleMouseLeave, hoveredSkill, setHoveredSkill, setIsLeaving, timeoutRef }) => {
     const pillRef = useRef(null);
+    const isTouchRef = useRef(false);
+
+    useEffect(() => {
+        const handleTouchStart = () => { isTouchRef.current = true; };
+        const handleMouseMove = () => { isTouchRef.current = false; };
+
+        window.addEventListener('touchstart', handleTouchStart);
+        window.addEventListener('mousemove', handleMouseMove);
+
+        return () => {
+            window.removeEventListener('touchstart', handleTouchStart);
+            window.removeEventListener('mousemove', handleMouseMove);
+        };
+    }, []);
 
     const handleMouseEnter = () => {
         const rect = pillRef.current.getBoundingClientRect();
+        if (isTouchRef.current) return; // ignore mouse enter when on touch
+
         onHover(skill, rect, pillRef.current); // Pass the element too
+    };
+
+    const handleClick = () => {
+        if (hoveredSkill != null) {
+            if (timeoutRef.current) clearTimeout(timeoutRef.current);
+            setIsLeaving(true);
+            timeoutRef.current = setTimeout(() => {
+                setHoveredSkill(null);
+                setIsLeaving(false);
+                // pillRef.current = null; // Clear the ref
+            }, 300);
+        } else {
+            const rect = pillRef.current.getBoundingClientRect();
+            onHover(skill, rect, pillRef.current);
+        }
     };
 
     return (
@@ -121,8 +152,8 @@ const SkillDetail = ({ skill, position, onMouseLeave, isLeaving, containerRef })
                 ref={cardRef}
                 className={`
           flex flex-col
-          bg-gray-300/10 text-gray-300 rounded-2xl p-6 shadow-2xl
-          border border-gray-300/10 backdrop-blur-xl
+          bg-blue-200/15 text-gray-300 rounded-2xl p-6 shadow-2xl
+          border border-gray-300/10 backdrop-blur-3xl
           ${isLeaving ? "animate-cardDisappear" : "animate-cardAppear"}
         `}
             >
@@ -154,7 +185,7 @@ const SkillDetail = ({ skill, position, onMouseLeave, isLeaving, containerRef })
                             {skill?.projects?.map((project, idx) => (
                                 <div
                                     key={idx}
-                                    className="text-sm bg-gray-900/20 rounded-lg px-3 py-2 backdrop-blur-sm"
+                                    className="text-sm bg-gray-900/20 rounded-lg px-3 py-2 border-1 border-gray-400/10 backdrop-blur-sm"
                                     style={{
                                         animation: `slideIn 0.3s ease-out forwards ${idx * 0.1}s`,
                                         opacity: 0,
@@ -214,6 +245,7 @@ const SkillsShowcase = ({
         };
     }, [hoveredSkill, containerRef]);
 
+
     const handleHover = (skill, rect, element) => {
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
         setIsLeaving(false);
@@ -234,18 +266,7 @@ const SkillsShowcase = ({
         }, 100);
     };
 
-    const handleClick = () => {
-        if (hoveredSkill != null) {
-            if (timeoutRef.current) clearTimeout(timeoutRef.current);
-            setIsLeaving(true);
-            timeoutRef.current = setTimeout(() => {
-                setHoveredSkill(null);
-                setIsLeaving(false);
-                pillRef.current = null; // Clear the ref
-            }, 300);
-        }
 
-    };
 
     return (
         <>
@@ -264,7 +285,10 @@ const SkillsShowcase = ({
                             skill={skill}
                             onHover={handleHover}
                             handleMouseLeave={handleMouseLeave}
-                            handleClick={handleClick}
+                            hoveredSkill={hoveredSkill}
+                            timeoutRef={timeoutRef}
+                            setHoveredSkill={setHoveredSkill}
+                            setIsLeaving={setIsLeaving}
                         />
                     </div>
                 ))}
