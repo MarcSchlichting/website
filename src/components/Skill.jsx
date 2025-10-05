@@ -1,6 +1,6 @@
 import React, { useRef, useLayoutEffect, useState, useEffect } from "react";
 
-const SkillPill = ({ skill, onHover, handleMouseLeave }) => {
+const SkillPill = ({ skill, onHover, handleMouseLeave, handleClick }) => {
     const pillRef = useRef(null);
 
     const handleMouseEnter = () => {
@@ -13,6 +13,7 @@ const SkillPill = ({ skill, onHover, handleMouseLeave }) => {
             ref={pillRef}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
+            onClick={handleClick}
             className="
         bg-gray-800
         text-gray-300 rounded-full cursor-pointer
@@ -47,11 +48,11 @@ const SkillDetail = ({ skill, position, onMouseLeave, isLeaving, containerRef })
 
     if (!skill && !isLeaving) return null;
 
-    const containerRect = containerRef?.current?.getBoundingClientRect() || { 
-        top: 0, 
-        left: 0, 
-        width: window.innerWidth, 
-        height: window.innerHeight 
+    const containerRect = containerRef?.current?.getBoundingClientRect() || {
+        top: 0,
+        left: 0,
+        width: window.innerWidth,
+        height: window.innerHeight
     };
 
     const scrollTop = containerRef?.current?.scrollTop || 0;
@@ -59,7 +60,7 @@ const SkillDetail = ({ skill, position, onMouseLeave, isLeaving, containerRef })
     // Tailwind responsive padding: px-4 sm:px-6 lg:px-8
     const windowWidth = window.innerWidth;
     let horizontalPadding = 16; // default px-4
-    
+
     if (windowWidth >= 1024) {
         horizontalPadding = 32; // lg:px-8
     } else if (windowWidth >= 640) {
@@ -68,16 +69,16 @@ const SkillDetail = ({ skill, position, onMouseLeave, isLeaving, containerRef })
 
     // max-w-5xl = 64rem = 1024px
     const maxWidth = 1024;
-    
+
     // Calculate the actual content width considering max-width
     const actualContentWidth = Math.min(windowWidth, maxWidth);
-    
+
     // Calculate available width for the card (accounting for padding on both sides)
     const availableWidth = actualContentWidth - (horizontalPadding * 2);
-    
+
     // Card width: 500px or available width, whichever is smaller
     const cardWidth = Math.min(500, availableWidth);
-    
+
     // If window is wider than max-width, content is centered (mx-auto)
     // This is the offset from the left edge of the window to the content area
     const contentOffsetX = windowWidth > maxWidth ? (windowWidth - maxWidth) / 2 : 0;
@@ -93,7 +94,7 @@ const SkillDetail = ({ skill, position, onMouseLeave, isLeaving, containerRef })
     // Constrain horizontally within the max-width content area
     // The minimum left position accounts for the content offset and padding
     const minLeft = contentOffsetX + horizontalPadding;
-    
+
     // The maximum left position ensures the card doesn't exceed the content area
     const maxLeft = contentOffsetX + actualContentWidth - horizontalPadding - cardWidth;
 
@@ -233,6 +234,19 @@ const SkillsShowcase = ({
         }, 100);
     };
 
+    const handleClick = () => {
+        if (hoveredSkill != null) {
+            if (timeoutRef.current) clearTimeout(timeoutRef.current);
+            setIsLeaving(true);
+            timeoutRef.current = setTimeout(() => {
+                setHoveredSkill(null);
+                setIsLeaving(false);
+                pillRef.current = null; // Clear the ref
+            }, 300);
+        }
+
+    };
+
     return (
         <>
             <div className="flex flex-wrap gap-1.5 justify-start">
@@ -250,6 +264,7 @@ const SkillsShowcase = ({
                             skill={skill}
                             onHover={handleHover}
                             handleMouseLeave={handleMouseLeave}
+                            handleClick={handleClick}
                         />
                     </div>
                 ))}
