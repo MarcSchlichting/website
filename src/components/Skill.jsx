@@ -5,7 +5,7 @@ const SkillPill = ({ skill, onHover, handleMouseLeave }) => {
 
     const handleMouseEnter = () => {
         const rect = pillRef.current.getBoundingClientRect();
-        onHover(skill, rect);
+        onHover(skill, rect, pillRef.current); // Pass the element too
     };
 
     return (
@@ -29,44 +29,82 @@ const SkillPill = ({ skill, onHover, handleMouseLeave }) => {
     );
 };
 
-const SkillDetail = ({ skill, position, onMouseLeave, isLeaving }) => {
+const SkillDetail = ({ skill, position, onMouseLeave, isLeaving, containerRef }) => {
     const cardRef = useRef(null);
-    const [cardHeight, setCardHeight] = useState(0);
+    const [cardHeight, setCardHeight] = useState(280);
 
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
-    const cardWidth = 500;
-    const padding = 20;
+    const gap = 20; // Gap between card bottom and pill top
 
     // Measure card height dynamically
     useLayoutEffect(() => {
-        if (cardRef.current) {
-            setCardHeight(cardRef.current.offsetHeight);
+        if (cardRef.current && skill && !isLeaving) {
+            const height = cardRef.current.offsetHeight;
+            if (height !== cardHeight) {
+                setCardHeight(height);
+            }
         }
-    }, [skill, isLeaving]);
+    }, [skill]);
 
-    if (!skill && !isLeaving) return null; // safe now, hooks already called
+    if (!skill && !isLeaving) return null;
 
-    // Position calculation
-    const pillCenterX = (position.left + position.right) / 2;
-    const pillCenterY = (position.top + position.bottom) / 2;
+    const containerRect = containerRef?.current?.getBoundingClientRect() || { 
+        top: 0, 
+        left: 0, 
+        width: window.innerWidth, 
+        height: window.innerHeight 
+    };
 
+    const scrollTop = containerRef?.current?.scrollTop || 0;
+
+    // Tailwind responsive padding: px-4 sm:px-6 lg:px-8
+    const windowWidth = window.innerWidth;
+    let horizontalPadding = 16; // default px-4
+    
+    if (windowWidth >= 1024) {
+        horizontalPadding = 32; // lg:px-8
+    } else if (windowWidth >= 640) {
+        horizontalPadding = 24; // sm:px-6
+    }
+
+    // max-w-5xl = 64rem = 1024px
+    const maxWidth = 1024;
+    
+    // Calculate the actual content width considering max-width
+    const actualContentWidth = Math.min(windowWidth, maxWidth);
+    
+    // Calculate available width for the card (accounting for padding on both sides)
+    const availableWidth = actualContentWidth - (horizontalPadding * 2);
+    
+    // Card width: 500px or available width, whichever is smaller
+    const cardWidth = Math.min(500, availableWidth);
+    
+    // If window is wider than max-width, content is centered (mx-auto)
+    // This is the offset from the left edge of the window to the content area
+    const contentOffsetX = windowWidth > maxWidth ? (windowWidth - maxWidth) / 2 : 0;
+
+    // Calculate positions relative to container
+    const pillCenterX = (position.left + position.right) / 2 - containerRect.left;
+    const pillTop = position.top - containerRect.top + scrollTop;
+
+    // Position card: centered horizontally, bottom edge at gap distance above pill
     let left = pillCenterX - cardWidth / 2;
-    let top = pillCenterY - (cardHeight || 280) - padding - 20;
+    let top = pillTop - cardHeight - gap;
 
-    // Keep inside viewport horizontally
-    if (left < padding) {
-        left = padding;
-    } else if (left + cardWidth > windowWidth - padding) {
-        left = windowWidth - cardWidth - padding;
+    // Constrain horizontally within the max-width content area
+    // The minimum left position accounts for the content offset and padding
+    const minLeft = contentOffsetX + horizontalPadding;
+    
+    // The maximum left position ensures the card doesn't exceed the content area
+    const maxLeft = contentOffsetX + actualContentWidth - horizontalPadding - cardWidth;
+
+    if (left < minLeft) {
+        left = minLeft;
+    } else if (left > maxLeft) {
+        left = maxLeft;
     }
 
-    // Keep inside viewport vertically
-    if (top < padding) {
-        top = position.bottom + padding; // place below pill if not enough space above
-    } else if (cardHeight && top + cardHeight > windowHeight - padding) {
-        top = Math.max(windowHeight - cardHeight - padding, padding);
-    }
+    // Ensure card doesn't go negative (extra safety check)
+    left = Math.max(minLeft, left);
 
     return (
         <div
@@ -75,7 +113,7 @@ const SkillDetail = ({ skill, position, onMouseLeave, isLeaving }) => {
             style={{
                 left: `${left}px`,
                 top: `${top}px`,
-                width: `min(${cardWidth}px, 100%)`,
+                width: `${cardWidth}px`,
             }}
         >
             <div
@@ -132,117 +170,21 @@ const SkillDetail = ({ skill, position, onMouseLeave, isLeaving }) => {
     );
 };
 
-// const SkillDetail = ({ skill, position, onMouseLeave, isLeaving }) => {
-//     if (!skill && !isLeaving) return null;
-
-//     // Calculate optimal position - ensure card covers the pill
-//     const windowWidth = window.innerWidth;
-//     const windowHeight = window.innerHeight;
-//     const cardWidth = 320;
-//     const cardHeight = 280;
-//     const padding = 20;
-
-//     // Account for scroll position since we use fixed positioning
-//     const scrollX = window.scrollX || window.pageXOffset;
-//     const scrollY = window.scrollY || window.pageYOffset;
-
-//     // Calculate pill center (position already includes scroll in getBoundingClientRect)
-//     const pillCenterX = (position.left + position.right) / 2;
-//     const pillCenterY = (position.top + position.bottom) / 2;
-
-//     // Default: center the card over the pill
-//     let left = pillCenterX - cardWidth / 2;
-//     let top = pillCenterY - cardHeight - padding - 90;
-
-
-//     // Adjust horizontally while keeping pill covered
-//     if (left < padding) {
-//         // Card would go off left edge - shift right but ensure pill stays covered
-//         left = Math.min(padding, position.right - 60); // Keep at least 60px of card over pill
-//     } else if (left + cardWidth > windowWidth - padding) {
-//         // Card would go off right edge - shift left but ensure pill stays covered
-//         left = Math.max(windowWidth - cardWidth - padding, position.left - cardWidth + 60);
-//     }
-
-//     //   // Adjust vertically while keeping pill covered
-//     //   if (top < padding) {
-//     //     // Card would go off top edge - shift down but ensure pill stays covered
-//     //     top = Math.min(padding, position.bottom - 60);
-//     //   } else if (top + cardHeight > windowHeight - padding) {
-//     //     // Card would go off bottom edge - shift up but ensure pill stays covered
-//     //     top = Math.max(windowHeight - cardHeight - padding, position.top - cardHeight + 60);
-//     //   }
-
-//     return (
-//         <div
-//             onMouseLeave={onMouseLeave}
-//             className="absolute z-50"
-//             style={{
-//                 left: `${left}px`,
-//                 top: `${top}px`,
-//                 width: `${cardWidth}px`,
-//             }}
-//         >
-//             <div className={`
-//         flex
-//         flex-col
-//         bg-gray-300/10
-//         text-gray-300 rounded-2xl p-6 shadow-2xl
-//         border border-gray-300/10
-//         backdrop-blur-xl
-//         ${isLeaving ? 'animate-cardDisappear' : 'animate-cardAppear'}
-//       `}>
-//                 <h2 className="mb-4">{skill.name}</h2>
-
-//                 <div className="space-y-4">
-//                     <div>
-//                         <div className="flex items-center justify-between mb-2">
-//                             <span className="text-sm font-semibold opacity-90">Proficiency</span>
-//                             <span className="text-sm font-bold">{skill.level}%</span>
-//                         </div>
-//                         <div className="bg-white/20 rounded-full h-3 overflow-hidden">
-//                             <div
-//                                 className="bg-gradient-to-r from-green-400 to-blue-400 h-full rounded-full transition-all duration-1000 ease-out"
-//                                 style={{ width: `${skill.level}%` }}
-//                             />
-//                         </div>
-//                     </div>
-
-//                     <div>
-//                         <div className="text-sm font-semibold mb-3 opacity-90">Key Projects</div>
-//                         <div className="space-y-2 max-h-36 overflow-y-auto">
-//                             {skill.projects.map((project, idx) => (
-//                                 <div
-//                                     key={idx}
-//                                     className="text-sm bg-white/10 rounded-lg px-3 py-2 backdrop-blur-sm
-//                     hover:bg-white/20 transition-colors duration-200
-//                     border border-white/10"
-//                                     style={{
-//                                         animation: `slideIn 0.3s ease-out forwards ${idx * 0.1}s`,
-//                                         opacity: 0
-//                                     }}
-//                                 >
-//                                     • {project}
-//                                 </div>
-//                             ))}
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// };
 
 const SkillsShowcase = ({
     skills,
+    scrollContainerRef,
+    bioContainerRef,
     title = "Skills & Experience",
     subtitle = "Hover over any skill to see details",
 }) => {
     const [hoveredSkill, setHoveredSkill] = useState(null);
-    const [position, setPosition] = useState({ top: 0, left: 0, right: 0 });
+    const [position, setPosition] = useState({ top: 0, left: 0, right: 0, bottom: 0 });
     const [isLeaving, setIsLeaving] = useState(false);
     const [mounted, setMounted] = useState(false);
     const timeoutRef = useRef(null);
+    const pillRef = useRef(null); // Add this to track the current pill
+    const containerRef = scrollContainerRef;
 
     useEffect(() => {
         const timer = setTimeout(() => setMounted(true), 50);
@@ -252,11 +194,31 @@ const SkillsShowcase = ({
         };
     }, []);
 
-    const handleHover = (skill, rect) => {
+    // Add scroll listener to update position
+    useEffect(() => {
+        const updatePosition = () => {
+            if (pillRef.current && hoveredSkill) {
+                const rect = pillRef.current.getBoundingClientRect();
+                setPosition(rect);
+            }
+        };
+
+        const scrollContainer = containerRef?.current || window;
+        scrollContainer.addEventListener('scroll', updatePosition, { passive: true });
+        window.addEventListener('scroll', updatePosition, { passive: true });
+
+        return () => {
+            scrollContainer.removeEventListener('scroll', updatePosition);
+            window.removeEventListener('scroll', updatePosition);
+        };
+    }, [hoveredSkill, containerRef]);
+
+    const handleHover = (skill, rect, element) => {
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
         setIsLeaving(false);
         setHoveredSkill(skill);
         setPosition(rect);
+        pillRef.current = element; // Store the pill element
     };
 
     const handleMouseLeave = () => {
@@ -266,6 +228,7 @@ const SkillsShowcase = ({
             timeoutRef.current = setTimeout(() => {
                 setHoveredSkill(null);
                 setIsLeaving(false);
+                pillRef.current = null; // Clear the ref
             }, 300);
         }, 100);
     };
@@ -279,7 +242,7 @@ const SkillsShowcase = ({
                         style={{
                             opacity: 0,
                             animation: mounted
-                                ? `pillFadeIn 0.5s ease-out forwards ${idx * 0.04+0.4}s`
+                                ? `pillFadeIn 0.5s ease-out forwards ${idx * 0.04 + 0.4}s`
                                 : "none",
                         }}
                     >
@@ -297,6 +260,8 @@ const SkillsShowcase = ({
                 position={position}
                 onMouseLeave={handleMouseLeave}
                 isLeaving={isLeaving}
+                containerRef={containerRef}
+                bioContainerRef={bioContainerRef}
             />
 
             <style jsx>{`

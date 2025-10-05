@@ -1,4 +1,5 @@
 import React from "react";
+import { useRef } from "react";
 import "./ShortBio.css"; // separate CSS for this component
 import headshot from "./../assets/headshot.jpg";
 import { FaLinkedin } from "react-icons/fa6";
@@ -6,13 +7,25 @@ import { FaGithub } from "react-icons/fa";
 import { IoMdMail } from "react-icons/io";
 import SkillsShowcase from "./Skill";
 
-function ShortBio() {
+function ShortBio({ scrollContainerRef }) {
     const [mounted, setMounted] = React.useState(false);
+
+
+    const bioContainerRef = useRef(null);
 
     React.useEffect(() => {
         const timer = setTimeout(() => setMounted(true), 50);
         return () => clearTimeout(timer);
     }, []);
+
+    // React.useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         console.log(scrollContainerRef.current);
+    //     }, 1000);
+
+    //     // Cleanup when component unmounts
+    //     return () => clearInterval(interval);
+    // }, [scrollContainerRef]);
 
     const mySkills = [
         {
@@ -26,7 +39,7 @@ function ShortBio() {
             ]
         },
         {
-            id: 10,
+            id: 0,
             name: "AI in Safety-Critical Domains",
             level: 100,
             projects: [
@@ -56,7 +69,7 @@ function ShortBio() {
             ]
         },
         {
-            id: 3,
+            id: 4,
             name: "RAG",
             level: 93,
             projects: [
@@ -67,7 +80,7 @@ function ShortBio() {
             ]
         },
         {
-            id: 4,
+            id: 5,
             name: "ML/DL",
             level: 85,
             projects: [
@@ -77,7 +90,7 @@ function ShortBio() {
             ]
         },
         {
-            id: 5,
+            id: 6,
             name: "Real-World Deployment",
             level: 90,
             projects: [
@@ -87,7 +100,7 @@ function ShortBio() {
             ]
         },
         {
-            id: 5,
+            id: 7,
             name: "Simualation",
             level: 87,
             projects: [
@@ -98,7 +111,7 @@ function ShortBio() {
             ]
         },
         {
-            id: 6,
+            id: 8,
             name: "Python",
             level: 98,
             projects: [
@@ -107,7 +120,7 @@ function ShortBio() {
             ]
         },
         {
-            id: 7,
+            id: 9,
             name: "React/JS",
             level: 70,
             projects: [
@@ -117,7 +130,7 @@ function ShortBio() {
             ]
         },
         {
-            id: 8,
+            id: 10,
             name: "Julia/Matlab",
             level: 60,
             projects: [
@@ -136,7 +149,7 @@ function ShortBio() {
             ]
         },
         {
-            id: 13,
+            id: 12,
             name: "APIs/Backend",
             level: 80,
             projects: [
@@ -146,7 +159,7 @@ function ShortBio() {
             ]
         },
         {
-            id: 15,
+            id: 13,
             name: "Speech Recognition",
             level: 80,
             projects: [
@@ -156,7 +169,7 @@ function ShortBio() {
             ]
         },
         {
-            id: 15,
+            id: 14,
             name: "Project Management",
             level: 90,
             projects: [
@@ -170,7 +183,7 @@ function ShortBio() {
 
 
     return (
-        <div style={{display:"flex", flexDirection:"column", alignContent:"center", justifyContent:'center', minHeight:"100dvh"}}>
+        <div ref={bioContainerRef} style={{ display: "flex", flexDirection: "column", alignContent: "center", justifyContent: 'center', minHeight: "100dvh" }}>
             <section className="two-column-section">
                 <div style={{
                     width: "50%",
@@ -213,7 +226,7 @@ function ShortBio() {
                         Interests and Skills
                     </h3>
                     <text className="fade-up text-sm pb-4" style={{ animationDelay: "0.35s" }}><em>Hover over any skill to see details.</em></text>
-                    <SkillsShowcase skills={mySkills} />
+                    <SkillsShowcase skills={mySkills} scrollContainerRef={scrollContainerRef} bioContainerRef={bioContainerRef} />
                     <h3 className="fade-up" style={{ animationDelay: "0.5s" }}>
                         Contact
                     </h3>

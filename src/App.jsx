@@ -28,6 +28,7 @@ function App() {
           paddingBottom: "5rem",
           margin: "0",            // remove margin
           width: "100vw",
+          position:"relative",
         }}
         ref={scrollContainer}
       >
@@ -43,7 +44,7 @@ function App() {
             justifyContent: "center",
             alignItems: "center",
           }}>
-            <ShortBio />
+            <ShortBio scrollContainerRef={scrollContainer}/>
           </div>
 
           <div style={{
