@@ -1,7 +1,4 @@
-@import "tailwindcss";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@reference "tailwindcss";
 
 /* Container for the two-column section */
 .two-column-section-2 {

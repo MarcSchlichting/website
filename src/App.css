@@ -1,34 +1,66 @@
+@reference "tailwindcss";
 
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
-@import "tailwindcss";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-body {
-  font-family: 'Source Sans 3', 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  background: linear-gradient(135deg, #082330, #131414, #141728);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-}
-
-p {
-  @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8;
-  font-family: 'Source Sans 3', 'Arial', sans-serif;
+/* Shared horizontal frame: every section lines up with the navbar content. */
+.content-block {
+  @apply w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8;
   text-align: left;
 }
 
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  text-align: center;
+.prose p {
+  max-width: 46rem;
 }
 
+.prose p + p {
+  margin-top: 0.9rem;
+}
 
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  padding-top: 4rem; /* navbar height */
+  padding-bottom: 3rem;
+  overflow-x: clip;
+}
 
+section[id] {
+  scroll-margin-top: 4.5rem;
+}
 
+.hero {
+  display: flex;
+  align-items: center;
+  min-height: calc(100dvh - 4rem);
+  padding-block: 3rem;
+}
 
+.publications-note {
+  margin-top: -2.5rem;
+  margin-bottom: 3rem;
+}
 
+.publication-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.publication-list .apa-link {
+  max-width: 52rem;
+}
+
+.site-footer {
+  text-align: center;
+  color: rgb(209 213 219 / 0.5);
+}
+
+.inline-link {
+  text-decoration: underline;
+  text-decoration-color: rgb(177 212 246 / 0.5);
+  text-underline-offset: 3px;
+  transition: color 0.3s ease-in-out;
+}
+
+.inline-link:hover {
+  color: #b1d4f6;
+}

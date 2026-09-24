@@ -1,9 +1,9 @@
 import React from "react";
 import "./TwoColumn.css"; // separate CSS for this component
 
-function TwoColumn({ image, text, maxWidthImage }) {
+function TwoColumn({ image, alt, text, maxWidthImage }) {
     return (
-        <section className="two-column-section-2">
+        <div className="two-column-section-2">
             <div className="text">
                 {text}
             </div>
@@ -11,11 +11,10 @@ function TwoColumn({ image, text, maxWidthImage }) {
                 className="image-wrapper"
                 style={{ maxWidth: maxWidthImage }}
             >
-                <img src={image} alt="Title" />
+                <img src={image} alt={alt} loading="lazy" />
             </div>
-        </section>
+        </div>
     );
 }
-
 
 export default TwoColumn;

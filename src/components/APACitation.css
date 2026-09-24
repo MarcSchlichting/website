@@ -1,8 +1,28 @@
 .apa-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-align: left;
   text-decoration: none;
   transition: color 0.3s ease-in-out;
 }
 
 .apa-link:hover {
-  color: #b1d4f6; /* <- your chosen hover color */
+  color: #b1d4f6;
+}
+
+.apa-me {
+  font-weight: 500;
+}
+
+.apa-venue {
+  align-self: flex-start;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #9ab8d4;
+  border: 1px solid rgb(154 184 212 / 0.3);
+  border-radius: 9999px;
+  padding: 0 0.5rem;
 }

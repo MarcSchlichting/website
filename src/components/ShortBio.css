@@ -1,92 +1,65 @@
-@import "tailwindcss";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@reference "tailwindcss";
 
-/* Container for the two-column section */
-.two-column-section {
-    @apply max-w-5xl mx-auto px-4 sm:px-6 sm:gap-8 lg:px-8 lg:gap-16;
+/* Hero: headshot + bio side by side, stacked on small screens */
+.bio-section {
+    @apply w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 gap-8 lg:gap-16;
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: center;
-    padding-bottom: 5rem;
-    /* height: 100dvh; */
+    flex-direction: column;
+    align-items: center;
 }
 
-/* Image animation */
-.two-column-section img {
-    max-width: 100%;
+.bio-image {
+    width: 60%;
+    max-width: 20rem;
+}
+
+.bio-image img {
+    display: block;
+    width: 100%;
     height: auto;
-    flex: 1;
-    border-radius: 0%;
-
-    /* Start hidden */
     opacity: 0;
-    transform: translateX(-30px) translateY(0);
-
-    /* Apply animation */
     animation: fadeInLeft 1s ease-out forwards;
 }
 
-/* Text animation */
-.two-column-section .text {
-    flex: 1;
-
+.bio-text {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    text-align: left;
 }
 
+.bio-paragraphs p + p {
+    margin-top: 0.9rem;
+}
 
+@media (min-width: 768px) {
+    .bio-section {
+        flex-direction: row;
+        align-items: flex-start;
+    }
 
+    .bio-image {
+        flex: 0 0 38%;
+        width: auto;
+        max-width: 24rem;
+        position: sticky;
+        top: 6rem;
+    }
+}
 
-/* Keyframes */
 @keyframes fadeInLeft {
     from {
         opacity: 0;
-        transform: translateX(-30px) translateY(0);
+        transform: translateX(-30px);
     }
 
     to {
         opacity: 1;
-        transform: translateX(0) translateY(0);
+        transform: translateX(0);
     }
 }
 
-@keyframes fadeInRight {
-    from {
-        opacity: 0;
-        transform: translateX(30px) translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0) translateY(0);
-    }
-}
-
-/* Responsive: stack columns on small screens */
-@media (max-width: 768px) {
-    .two-column-section {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    /* Make the image container full width on small screens */
-    .two-column-section>div:first-child {
-        width: 100% !important;
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-    
-    }
-
-    .two-column-section img {
-        width: 60% !important;
-        height: auto !important;
-        margin-bottom: 1.5rem !important;
-    }
-}
-
-/* fade-up animation */
 @keyframes fadeUp {
     from {
         opacity: 0;
@@ -102,9 +75,4 @@
 .fade-up {
     opacity: 0;
     animation: fadeUp 0.6s ease-out forwards;
-    position: static !important;
-    /* ensure it doesn't create a new containing block */
-    transform-origin: top;
-    /* purely visual */
-    will-change: opacity, transform;
 }
