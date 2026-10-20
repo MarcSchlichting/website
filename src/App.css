@@ -14,6 +14,11 @@
   margin-top: 0.9rem;
 }
 
+.thesis-video {
+  max-width: 46rem;
+  margin-top: 1.25rem;
+}
+
 .page {
   display: flex;
   flex-direction: column;

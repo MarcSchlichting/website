@@ -83,6 +83,16 @@ function App() {
           <SubSectionHeading heading={"PhD Aeronautics and Astronautics"} location={"Stanford University"} time={"05/2022 - 01/2026"} />
           <Prose>
             <p>The overarching theme of my PhD is exploring how AI can be safely deployed in highly safety-critical environments, where there is little to no room for error, and conversely, how AI can be leveraged within these environments to enhance safety. My research focuses on developing methods that ensure reliable, robust decision-making, as well as using generative models to support and augment human and system performance in real-time. My thesis advisor was Professor Mykel Kochenderfer, my committee included Professors Somil Bansal and Mac Schwager, and my thesis is titled <em>Enhancing Safety through Generative Models in Decision-Making Systems</em>.</p>
+            <div className="video-frame thesis-video">
+              <iframe
+                src="https://www.youtube-nocookie.com/embed/nCtkqVG79i0"
+                title="PhD thesis defense: Enhancing Safety through Generative Models in Decision-Making Systems"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
+            </div>
           </Prose>
 
           <SubSectionHeading heading={"M.S. Neuroscience"} location={"Stanford University"} time={"01/2024 - 08/2025"} />
