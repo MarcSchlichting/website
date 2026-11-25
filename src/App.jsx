@@ -32,7 +32,7 @@ function App() {
         <section id="experience">
           <SectionHeading heading="Experience" />
 
-          <SubSectionHeading heading={"Postdoctoral Researcher"} location={"Stanford University"} time={"12/2025 - now"} />
+          <SubSectionHeading heading={"Postdoctoral Researcher"} location={"Stanford University"} time={"01/2026 - now"} />
           <Prose>
             <p>At the Stanford Intelligent Systems Laboratory and Center for AI Safety, my postdoctoral research focuses on three critical threads in AI safety: 1) safety evaluation and red-teaming of LLMs in high-stakes domains such as mental health and cybersecurity, 2) mitigating risks in safety-critical deployments by reducing LLMs' reliance on potentially unreliable internal knowledge, and 3) identifying and detecting emerging threats from adversarial human misuse of AI systems. I also co-author research on token-level uncertainty signatures of committed and persistent reasoning failures in chain-of-thought traces, and contribute to the assurance of vision-based aircraft navigation, including mechanistic interpretability for learning assurance, protection levels for pose estimation, and taxi localization.</p>
             <p>I am the primary developer of Aquila, the lab's platform for serving many vLLM models on a shared GPU cluster, with an OpenAI-compatible gateway, API-key authentication, a GPU/RAM model warm cache, and monitoring and alerting.</p>
